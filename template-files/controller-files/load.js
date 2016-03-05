@@ -9,7 +9,7 @@ module.exports = (req, res, render) => {
   req.models.{{x-singular-underscore}}.find(query)
     .then({{x-singular-camelcase}} =>
       render({
-        model: {{x-singular-camelcase}}
+        model: {{x-singular-camelcase}},
       })
     )
     .catch(render);

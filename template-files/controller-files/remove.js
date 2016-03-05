@@ -10,5 +10,5 @@ module.exports = (req, res, render) => {
   req.models.{{x-singular-underscore}}.find(query)
     .then({{x-singular-camelcase}} => {{x-singular-camelcase}}.destroy());
     .then(() => res.json({}))
-    .catch(render)
+    .catch(render);
 };
