@@ -23,17 +23,17 @@ module.exports = (sequelize, DataTypes) => {
     },
 
     classMethods: {
-      associate: (models) => {
+      associate(models) {
         /*
          * Define relationships with other models
          * Example:
          * models.user.hasOne(models.project);
          */
-      }
+      },
     },
 
     underscored: true,
-    underscoredAll: true
+    underscoredAll: true,
 
     /* Find more configurations at:
      * http://docs.sequelizejs.com/en/latest/docs/models-definition/#configuration
