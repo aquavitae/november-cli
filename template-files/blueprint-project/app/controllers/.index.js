@@ -1,19 +1,16 @@
 'use strict';
 
-var fs        = require('fs');
-var path      = require('path');
-var inflect   = require('inflect');
-var basename  = path.basename(module.filename);
-var models    = {};
+const fs = require('fs');
+const path = require('path');
+const inflect = require('inflect');
+const basename = path.basename(module.filename);
+const models = {};
 
-fs
-  .readdirSync(__dirname)
-  .filter(function(file) {
-    return (file.indexOf('.') !== 0) && (file !== basename);
-  })
+fs.readdirSync(__dirname)
+  .filter(file => (file.indexOf('.') !== 0) && (file !== basename))
   .forEach(function(file) {
-    var underscore = inflect.singularize(inflect.underscore(file));
-    models[underscore] = require('./' + file + '/.index.js');
+    const underscore = inflect.singularize(inflect.underscore(file));
+    models[underscore] = require(`./${file}/.index.js`);
   });
 
 module.exports = models;

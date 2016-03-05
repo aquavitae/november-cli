@@ -1,7 +1,9 @@
+'use strict';
+
 var giveError = require('./give-error');
 var giveJSON = require('./give-json');
 
-module.exports = function(obj, req, res, next) {
+module.exports = function (obj, req, res, next) {
 
   var isValidModel = (
     obj.constructor && obj.constructor === Array && obj.length === 0

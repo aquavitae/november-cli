@@ -1,11 +1,13 @@
-module.exports = function(req, res, next) {
-  var db = require('../models');
+'use strict';
+
+module.exports = function (req, res, next) {
+  const db = require('../models');
 
   db.sequelize.sync()
-  .then(function(err) {
+  .then(function (err) {
     req.models = db;
     next();
-  }, function (err) { 
+  }, function (err) {
     console.log('An error occurred while creating the table:', err);
     next(err);
   });

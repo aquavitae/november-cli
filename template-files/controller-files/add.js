@@ -1,12 +1,8 @@
-module.exports = function(req, res, render) {
+'use strict';
 
+module.exports = (req, res, render) => {
   req.models.{{x-singular-underscore}}
-  .create(req.body.{{x-singular-camelcase}})
-  .then(function({{x-singular-camelcase}}) {
-    render({{x-singular-camelcase}});
-  })
-  .catch(function(err) {
-    render(err);
-  });
-
+    .create(req.body.{{x-singular-camelcase}})
+    .then(render);
+    .catch(render);
 };

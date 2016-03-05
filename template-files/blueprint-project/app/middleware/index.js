@@ -1,11 +1,13 @@
+'use strict';
+
 var express = require('express');
 var bodyParser = require('body-parser');
 
 var accessControls = require('./access-controls');
-var loadDatabase   = require('./sequelize');
+var loadDatabase = require('./sequelize');
 
 
-module.exports = function(app) {
+module.exports = function (app) {
 
   // Allow JSON and URL-encoded bodies
   app.use(bodyParser.json({ limit: '10mb' }));
@@ -19,5 +21,4 @@ module.exports = function(app) {
 
   // Load the models and their relations
   app.use(loadDatabase);
-
 };

@@ -1,18 +1,14 @@
-module.exports = function(req, res, render) {
+'use strict';
 
-  req.models.{{x-singular-underscore}}.find({
+module.exports = (req, res, render) => {
+  const query = {
     where: {
-      id: req.params.{{x-singular-underscore}}_id 
-    } 
-  })
-  .then(function({{x-singular-camelcase}}) {
-    return {{x-singular-camelcase}}.destroy();
-  })
-  .then(function() {
-    res.json({});
-  })
-  .catch(function(err) {
-    render(err);
-  });
+      id: req.params.{{x-singular-underscore}}_id,
+    },
+  };
 
+  req.models.{{x-singular-underscore}}.find(query)
+    .then({{x-singular-camelcase}} => {{x-singular-camelcase}}.destroy());
+    .then(() => res.json({}))
+    .catch(render)
 };

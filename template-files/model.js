@@ -1,9 +1,9 @@
 'use strict';
 
-var ssaclAttributeRoles = require('ssacl-attribute-roles');
+const ssaclAttributeRoles = require('ssacl-attribute-roles');
 
-module.exports = function(sequelize, DataTypes) {
-  var {{x-singular-capitalize}} = sequelize.define('{{x-table}}', {
+module.exports = (sequelize, DataTypes) => {
+  const {{x-singular-capitalize}} = sequelize.define('{{x-table}}', {
     /*
      * Set the table fields that you want for your model
      * Example:
@@ -23,7 +23,7 @@ module.exports = function(sequelize, DataTypes) {
     },
 
     classMethods: {
-      associate: function(models) {
+      associate: (models) => {
         /*
          * Define relationships with other models
          * Example:

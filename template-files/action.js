@@ -1,4 +1,6 @@
-module.exports = function(req, res, render) {
+'use strict';
+
+module.exports = (req, res, render) => {
 
   /*
    * Do something here

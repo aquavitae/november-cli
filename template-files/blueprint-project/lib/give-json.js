@@ -1,21 +1,23 @@
+'use strict';
+
 var prettyjson = require('prettyjson');
-var colors     = require('colors/safe');
-var inflect    = require('inflect');
-var humps      = require('humps');
-var handy      = require('./handy');
+var colors = require('colors/safe');
+var inflect = require('inflect');
+var humps = require('humps');
+var handy = require('./handy');
 
 /*
  * Take a Sequelize model (with all of its eventual associations) >
  * > and convert it to simple JSON according to the JSON API spec >
  * > used by Ember Data.
  */
-module.exports = function(req, res, obj, opts) {
+module.exports = function (req, res, obj, opts) {
   var JSONKey = determineJSONKeyName(req);
 
   // Convert Sequelize model to simple JSON
   var objData = unwrapProperties(obj);
-  objData     = replaceForeignKeys(objData);
-  objData     = humps.camelizeKeys(objData);
+  objData = replaceForeignKeys(objData);
+  objData = humps.camelizeKeys(objData);
 
   // Set the key name for that object
   var json = {};
@@ -28,10 +30,10 @@ module.exports = function(req, res, obj, opts) {
 
   console.log(colors.green(req.method + ' ' + req.url)); // console output (for dev)
   res.json(json); // http output (for user)
-}
+};
 
 
-/* 
+/*
  * Convert embedded data to sideloaded data
  * Go through each element, keep their ids intact and push the values to a new root key
  * Example: { user: {...} } => becomes { user: 1 } with a sideloaded user
@@ -39,7 +41,7 @@ module.exports = function(req, res, obj, opts) {
 function sideload(json, JSONKey, opts) {
 
   if (json[JSONKey].constructor === Array) {
-    json[JSONKey].forEach(function(element) {
+    json[JSONKey].forEach(function (element) {
       element = convertToSideload(element);
     });
   } else {
@@ -49,9 +51,9 @@ function sideload(json, JSONKey, opts) {
   function convertToSideload(obj) {
     for (i in obj) {
       var value = obj[i];
-      var isArray = (value && typeof value[0] === "object");
-      var isSingleObj = (typeof value === "object" && value && value.id);
-      
+      var isArray = (value && typeof value[0] === 'object');
+      var isSingleObj = (typeof value === 'object' && value && value.id);
+
       // For both
       if (isArray || isSingleObj) {
         var sideKey = inflect.pluralize(i);
@@ -71,7 +73,7 @@ function sideload(json, JSONKey, opts) {
         json[sideKey].push(value[0]);
 
         var onlyIds = [];
-        value.forEach(function(valueObj) {
+        value.forEach(function (valueObj) {
           onlyIds.push(valueObj.id);
         });
 
@@ -110,8 +112,8 @@ function replaceForeignKeys(objData) {
     for (key in objEl) {
       var lastThree = key.substr(key.length - 3);
       var keyWithoutLastThree = key.substr(0, key.length - 3);
-      
-      if (lastThree === "_id") {
+
+      if (lastThree === '_id') {
         if (!objEl[keyWithoutLastThree]) {
           objEl[keyWithoutLastThree] = objEl[key];
         }
@@ -137,7 +139,7 @@ function unwrapProperties(obj) {
   if (obj.constructor === Array) {
     objData = [];
     if (obj.length) {
-      obj.forEach(function(objEl) {
+      obj.forEach(function (objEl) {
         objData.push(objEl.get());
       });
     }
@@ -167,14 +169,14 @@ function unwrapProperties(obj) {
 
   function isForeignKey(value) {
     return (
-      value && 
-      typeof value === "object" && 
+      value &&
+      typeof value === 'object' &&
       (value[0] && value[0]['dataValues'] || value.dataValues)
     );
   }
 
   if (objData.constructor && objData.constructor === Array) {
-    objData.forEach(function(dataRow) {
+    objData.forEach(function (dataRow) {
       dataRow = simplifyEmbedded(dataRow);
     });
   } else {

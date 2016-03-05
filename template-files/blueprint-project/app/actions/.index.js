@@ -1,20 +1,17 @@
 'use strict';
 
-var fs        = require('fs');
-var path      = require('path');
-var inflect   = require('inflect');
-var basename  = path.basename(module.filename);
-var controls  = {};
+const fs = require('fs');
+const path = require('path');
+const inflect = require('inflect');
+const basename = path.basename(module.filename);
+const controls = {};
 
-fs
-  .readdirSync(__dirname)
-  .filter(function(file) {
-    return (file.indexOf('.') !== 0) && (file !== basename);
-  })
+fs.readdirSync(__dirname)
+  .filter(file => (file.indexOf('.') !== 0) && (file !== basename))
   .forEach(function(file) {
-    var baseName = path.basename(file, '.js');
-    var underscoreName = inflect.underscore(baseName);
-    controls[underscoreName] = require('./' + file);
+    const baseName = path.basename(file, '.js');
+    const underscoreName = inflect.underscore(baseName);
+    controls[underscoreName] = require(`./${file}`);
   });
 
 module.exports = controls;

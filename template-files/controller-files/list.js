@@ -1,12 +1,8 @@
-module.exports = function(req, res, render) {
+'use strict';
 
+module.exports = (req, res, render) => {
   req.models.{{x-singular-underscore}}
-  .findAll()
-  .then(function({{x-plural-camelcase}}) {
-    render({{x-plural-camelcase}});
-  })
-  .catch(function(err) {
-    render(err);
-  });
-
+    .findAll()
+    .then(render);
+    .catch(render);
 };

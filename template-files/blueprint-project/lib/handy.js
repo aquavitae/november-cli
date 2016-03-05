@@ -1,3 +1,5 @@
+'use strict';
+
 /*
  * These functions are used in giveError and giveJSON
  */
@@ -27,8 +29,8 @@ function getBaseURL(req) {
   var baseURL = null;
 
   if (req.url) {
-    if (req.url.indexOf("?") !== -1){
-      baseURL = req.url.substr(0, req.url.indexOf("?"));
+    if (req.url.indexOf('?') !== -1) {
+      baseURL = req.url.substr(0, req.url.indexOf('?'));
     } else {
       baseURL = req.url;
     }
@@ -48,7 +50,7 @@ function urlContainsId(req) {
   return !! modelId;
 }
 
-module.exports.getModelName  = getModelName;
-module.exports.getModelId    = getModelId;
-module.exports.getBaseURL    = getBaseURL;
+module.exports.getModelName = getModelName;
+module.exports.getModelId = getModelId;
+module.exports.getBaseURL = getBaseURL;
 module.exports.urlContainsId = urlContainsId;

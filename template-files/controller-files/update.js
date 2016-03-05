@@ -1,24 +1,22 @@
-module.exports = function(req, res, render) {
+'use strict';
 
-  req.models.{{x-singular-underscore}}.find({
+module.exports = (req, res, render) => {
+  const query = {
     where: {
-      id: req.params.{{x-singular-underscore}}_id 
-    }
-  })
-  .then(function({{x-singular-camelcase}}) {
-    
-    /*
-     * Set new values like this:
-     * {{x-singular}}.some_field_name = req.body.{{x-singular}}.someFieldName;
-     */
-     
-    return {{x-singular-camelcase}}.save();
-  })
-  .then(function({{x-singular-camelcase}}) {
-    render({{x-singular-camelcase}});
-  })
-  .catch(function(err) {
-    render(err);
-  });
+      id: req.params.{{x-singular-underscore}}_id,
+    },
+  };
 
+  req.models.{{x-singular-underscore}}.find(query)
+    .then({{x-singular-camelcase}} => {
+
+      /*
+       * Set new values like this:
+       * {{x-singular}}.some_field_name = req.body.{{x-singular}}.someFieldName;
+       */
+
+      return {{x-singular-camelcase}}.save();
+    })
+    .then(render)
+    .catch(render);
 };

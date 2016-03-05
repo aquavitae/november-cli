@@ -1,6 +1,8 @@
+'use strict';
+
 var controllers = require('./controllers/.index');
 var actions = require('./actions/.index');
 
-module.exports = function(app) {
-  
+module.exports = function (app) {
+
 };
